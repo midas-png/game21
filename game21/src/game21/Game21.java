@@ -72,13 +72,14 @@ public class Game21 {
                 if(p1Move) {
                     int card = deck.get(new Random().nextInt(10));
                     this.pTotal += card;
-                    System.out.println(this.pTotal);
+                    System.out.println("Player 1 gets card " + card + "\nThe total for player 1 is " + this.pTotal);
                     this.moveNum++;
                     startGame(false);
                 }
                 else if(!p1Move) {
-                    this.p2Total += deck.get(new Random().nextInt(10));
-                    System.out.println(this.p2Total);
+                    int card = deck.get(new Random().nextInt(10));
+                    this.p2Total += card;
+                    System.out.println("Player 2 gets card " + card + "\nThe total for player 2 is " + this.p2Total);
                     this.moveNum++;
                     startGame(true);
                 }
@@ -89,27 +90,35 @@ public class Game21 {
         String resultGame(){
             if (this.pTotal > 21 && this.p2Total > 21)
                 if(this.pTotal > this.p2Total)
-                    return "Player 2 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(2);
                 else
-                    return "Player 1 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(1);
             else if (this.pTotal > this.p2Total)
                 if(this.pTotal == 21)
-                    return "Player 1 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(1);
                 else if(this.pTotal > 21 && this.p2Total <= 21)
-                    return "Player 2 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(2);
                 else
-                    return "Player 1 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(1);
             else if (this.pTotal < this.p2Total)
                 if(this.p2Total == 21)
-                    return "Player 2 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(2);
                 else if(this.p2Total > 21 && this.pTotal <= 21)
-                    return "Player 1 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(1);
                 else
-                    return "Player 2 won " + this.pTotal + ":" + this.p2Total;
+                    return playerWon(2);
             else if (this.pTotal == this.p2Total)
-                return "It's a tie " + this.pTotal + ":" + this.p2Total;
+                return tie();
 
             return null;
+        }
+
+        String playerWon(int playerNum){
+            return "Player " + playerNum + " won " + this.pTotal + ":" + this.p2Total;
+        }
+
+        String tie(){
+         return "It's a tie " + this.pTotal + ":" + this.p2Total;
         }
 
     }
